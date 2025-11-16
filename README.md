@@ -4,39 +4,22 @@
   Java Developer • Student at UWSB Merito • Building clean and modern backend systems
 </p>
 
----
+## 🧰 Tech Stack
 
-### 🧭 Tech Stack
+### 🗄 Databases
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=java,spring,hibernate,mysql,postgres,git,linux" />
+  <img src="https://skillicons.dev/icons?i=postgres" />
+  <img src="https://img.shields.io/badge/MS%20SQL%20Server-CC2927?logo=microsoftsqlserver&logoColor=white" />
 </p>
 
----
+### 🔧 Backend & Languages
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=java,spring,cs,python,js,nodejs" />
+</p>
 
-### 📌 Selected Projects
+### 🛠 Tools & Build Systems
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=idea,maven,git" />
+  <img src="https://img.shields.io/badge/Microsoft%20Office-0078D4?logo=microsoftoffice&logoColor=white" />
+</p>
 
-**MiniCRM (Java + Spring Boot)**  
-Лёгкая CRM-система: клиенты, сделки, авторизация, REST API.  
-[→ Перейти к репозиторию](#)
-
-**VM Automation Tools (Java)**  
-Набор утилит для работы с виртуальными машинами и быстрых девелоперских окружений.  
-[→ Перейти к репозиторию](#)
-
-**SQL Playground**  
-Подборка практических SQL-задач (MS SQL Server).  
-[→ Перейти к репозиторию](#)
-
----
-
-### 🧩 A little about me
-Программист, который любит упрощать сложное и усложнять скучное.  
-Учусь Java 23, SQL Server, Spring и всё, что помогает писать быстрый и точный код.
-
----
-
-### 📬 Contact
-Email: **ivan.yemtseu@example.com**  
-LinkedIn: *вставь ссылку сюда*
-
----
