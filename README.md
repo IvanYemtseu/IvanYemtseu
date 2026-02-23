@@ -47,14 +47,6 @@ Currently studying Software Engineering (2023–2027)
 - Clean architecture & modular project structure  
 
 ---
-
-## 📈 GitHub Activity
-
-<p align="center">
-  <img src="https://streak-stats.demolab.com?user=IvanYemtseu&theme=tokyonight&hide_border=true"/>
-</p>
----
-
 ## 📫 Connect With Me
 
 - LinkedIn: *https://www.linkedin.com/in/ivanyemtseu/*  
