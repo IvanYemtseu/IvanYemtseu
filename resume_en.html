@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ivan Yemtseu — Backend Developer</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0f1b2d;
+      --navy2:  #1a2d45;
+      --teal:   #0ea5e9;
+      --teal2:  #38bdf8;
+      --accent: #10b981;
+      --light:  #f8fafc;
+      --muted:  #94a3b8;
+      --text:   #1e293b;
+      --border: #e2e8f0;
+      --tag-bg: #eff6ff;
+      --tag-fg: #1d4ed8;
+    }
+
+    html { font-size: 10pt; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: #f1f5f9;
+      line-height: 1.55;
+    }
+
+    .page {
+      max-width: 210mm;
+      margin: 0 auto;
+      background: #fff;
+      box-shadow: 0 4px 32px rgba(0,0,0,.12);
+    }
+
+    /* ─── HEADER ─────────────────────────────── */
+    .header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+      color: #fff;
+      padding: 36px 44px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+    }
+
+    .header-left h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -.5px;
+      line-height: 1.1;
+    }
+
+    .header-left h1 span { color: var(--teal2); }
+
+    .header-left .title {
+      margin-top: 6px;
+      font-size: .95rem;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+
+    .header-left .tagline {
+      margin-top: 12px;
+      font-size: .82rem;
+      color: #cbd5e1;
+      max-width: 380px;
+      line-height: 1.5;
+    }
+
+    .header-right {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      min-width: 220px;
+      text-align: right;
+    }
+
+    .contact-item {
+      font-size: .78rem;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 7px;
+    }
+
+    .contact-item a { color: var(--teal2); text-decoration: none; }
+    .contact-item a:hover { text-decoration: underline; }
+
+    .contact-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      background: rgba(255,255,255,.08);
+      border-radius: 4px;
+      font-size: .7rem;
+    }
+
+    /* ─── MAIN GRID ──────────────────────────── */
+    .body-wrap {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 0;
+    }
+
+    /* ─── SIDEBAR ────────────────────────────── */
+    .sidebar {
+      background: var(--light);
+      border-right: 1px solid var(--border);
+      padding: 28px 22px;
+    }
+
+    .sidebar-section { margin-bottom: 26px; }
+
+    .sidebar-section:last-child { margin-bottom: 0; }
+
+    .s-title {
+      font-size: .68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--teal);
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--teal);
+    }
+
+    /* Skill rows */
+    .skill-category { margin-bottom: 14px; }
+    .skill-cat-name {
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 5px;
+    }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .62rem;
+      font-weight: 500;
+      background: var(--tag-bg);
+      color: var(--tag-fg);
+      border-radius: 3px;
+      padding: 2px 6px;
+      white-space: nowrap;
+    }
+
+    .tag.green { background: #f0fdf4; color: #166534; }
+    .tag.purple { background: #faf5ff; color: #6b21a8; }
+    .tag.orange { background: #fff7ed; color: #9a3412; }
+    .tag.gray   { background: #f1f5f9; color: #475569; }
+
+    /* Languages */
+    .lang-item { margin-bottom: 9px; }
+    .lang-name { font-size: .78rem; font-weight: 600; color: var(--navy); }
+    .lang-level { font-size: .7rem; color: var(--muted); }
+    .lang-bar { height: 3px; background: var(--border); border-radius: 2px; margin-top: 4px; }
+    .lang-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--teal), var(--accent)); }
+
+    /* Education sidebar block */
+    .edu-item .edu-degree { font-size: .78rem; font-weight: 600; color: var(--navy); line-height: 1.35; }
+    .edu-item .edu-school { font-size: .73rem; color: var(--muted); margin-top: 3px; }
+    .edu-item .edu-date  { font-size: .7rem; color: var(--teal); margin-top: 4px; font-weight: 500; }
+
+    /* Soft skills */
+    .soft-list { list-style: none; }
+    .soft-list li {
+      font-size: .76rem;
+      color: #475569;
+      padding: 3px 0;
+      padding-left: 14px;
+      position: relative;
+    }
+    .soft-list li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-size: .7rem;
+    }
+
+    /* ─── MAIN CONTENT ───────────────────────── */
+    .main { padding: 28px 32px; }
+
+    .section { margin-bottom: 26px; }
+    .section:last-child { margin-bottom: 0; }
+
+    .section-title {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--teal);
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--teal);
+    }
+
+    /* Summary */
+    .summary p {
+      font-size: .84rem;
+      color: #334155;
+      line-height: 1.65;
+    }
+
+    /* Projects */
+    .project { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .project:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .project-header { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+
+    .project-name {
+      font-size: .92rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .project-name a { color: var(--navy); text-decoration: none; }
+    .project-name a:hover { color: var(--teal); }
+
+    .project-badge {
+      font-size: .62rem;
+      font-weight: 600;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+      border-radius: 99px;
+      padding: 2px 8px;
+      white-space: nowrap;
+    }
+
+    .project-tech {
+      margin-top: 5px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .project-desc {
+      margin-top: 8px;
+      font-size: .8rem;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    .project-bullets {
+      margin-top: 7px;
+      list-style: none;
+      padding: 0;
+    }
+
+    .project-bullets li {
+      font-size: .79rem;
+      color: #334155;
+      padding: 2px 0 2px 16px;
+      position: relative;
+      line-height: 1.55;
+    }
+
+    .project-bullets li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-size: .75rem;
+    }
+
+    .project-link {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: .72rem;
+      color: var(--teal);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .project-link:hover { text-decoration: underline; }
+
+    /* ─── PRINT ──────────────────────────────── */
+    @media print {
+      body { background: #fff; }
+      .page { box-shadow: none; max-width: 100%; }
+      @page { size: A4; margin: 0; }
+      .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .sidebar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══ HEADER ══════════════════════════════════════════ -->
+  <header class="header">
+    <div class="header-left">
+      <h1>Ivan <span>Yemtseu</span></h1>
+      <div class="title">Backend Developer</div>
+      <div class="tagline">
+        Full-cycle Java developer with 2+ years of hands-on experience building production-grade systems —
+        from secure REST APIs and payment flows to Android apps and full-stack monorepos.
+        Currently finishing a Software Engineering degree while actively seeking remote opportunities.
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="contact-item"><span class="contact-icon">✉</span><a href="mailto:Ivan.Yemtseu@gmail.com">Ivan.Yemtseu@gmail.com</a></div>
+      <div class="contact-item"><span class="contact-icon">🇵🇱</span>+48 576 531 835</div>
+      <div class="contact-item"><span class="contact-icon">🇧🇾</span>+375 (29) 187-63-00</div>
+      <div class="contact-item"><span class="contact-icon">⌨</span><a href="https://github.com/IvanYemtseu">github.com/IvanYemtseu</a></div>
+      <div class="contact-item"><span class="contact-icon">in</span><a href="https://linkedin.com/in/ivan-yemtseu">linkedin.com/in/ivan-yemtseu</a></div>
+    </div>
+  </header>
+
+  <!-- ══ BODY ════════════════════════════════════════════ -->
+  <div class="body-wrap">
+
+    <!-- ─ SIDEBAR ─────────────────────────────────────── -->
+    <aside class="sidebar">
+
+      <div class="sidebar-section">
+        <div class="s-title">Tech Stack</div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">Core Backend</div>
+          <div class="tags">
+            <span class="tag">Java 21</span>
+            <span class="tag">Spring Boot 3.x</span>
+            <span class="tag">Spring Security</span>
+            <span class="tag">Spring Data JPA</span>
+            <span class="tag">Hibernate</span>
+            <span class="tag">REST API</span>
+            <span class="tag">JWT</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">Databases</div>
+          <div class="tags">
+            <span class="tag green">PostgreSQL</span>
+            <span class="tag green">MS SQL Server</span>
+            <span class="tag green">Oracle SQL</span>
+            <span class="tag green">H2</span>
+            <span class="tag green">Flyway</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">Frontend (basic)</div>
+          <div class="tags">
+            <span class="tag purple">Next.js</span>
+            <span class="tag purple">HTML5 / CSS3</span>
+            <span class="tag purple">JavaScript</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">API Design</div>
+          <div class="tags">
+            <span class="tag">REST API</span>
+            <span class="tag">Webhooks</span>
+            <span class="tag">OpenAPI / Swagger</span>
+            <span class="tag">SMTP</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">DevOps &amp; Infra</div>
+          <div class="tags">
+            <span class="tag gray">Docker</span>
+            <span class="tag gray">Docker Compose</span>
+            <span class="tag gray">OpenShift</span>
+            <span class="tag gray">Nginx</span>
+            <span class="tag gray">Linux / VPS</span>
+            <span class="tag gray">Jenkins</span>
+            <span class="tag gray">Maven</span>
+            <span class="tag gray">Gradle</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">Security &amp; Observability</div>
+          <div class="tags">
+            <span class="tag">Bucket4j</span>
+            <span class="tag">Rate Limiting</span>
+            <span class="tag">Sentry</span>
+            <span class="tag">Spring Actuator</span>
+            <span class="tag">Audit Logging</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">Integrations</div>
+          <div class="tags">
+            <span class="tag">Telegram Bot API</span>
+            <span class="tag">Cloudinary</span>
+            <span class="tag">SMTP</span>
+            <span class="tag">reCAPTCHA v3</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">Testing</div>
+          <div class="tags">
+            <span class="tag">JUnit 5</span>
+            <span class="tag">Mockito</span>
+            <span class="tag">AssertJ</span>
+            <span class="tag">Hamcrest</span>
+            <span class="tag">TDD</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">Additional</div>
+          <div class="tags">
+            <span class="tag gray">Kotlin / Android</span>
+            <span class="tag gray">Node.js</span>
+            <span class="tag gray">C# / .NET</span>
+            <span class="tag gray">Git</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="s-title">Languages</div>
+        <div class="lang-item">
+          <div class="lang-name">Russian</div>
+          <div class="lang-level">Native</div>
+          <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-name">Polish</div>
+          <div class="lang-level">Fluent (C1)</div>
+          <div class="lang-bar"><div class="lang-fill" style="width:88%"></div></div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-name">English</div>
+          <div class="lang-level">Fluent (B2+)</div>
+          <div class="lang-bar"><div class="lang-fill" style="width:82%"></div></div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="s-title">Education</div>
+        <div class="edu-item">
+          <div class="edu-degree">B.Eng. — Software Engineering</div>
+          <div class="edu-school">Wyższa Szkoła Bankowa Merito, Gdańsk</div>
+          <div class="edu-date">Expected: February 2027 (Semester 6 of 7)</div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="s-title">Soft Skills</div>
+        <ul class="soft-list">
+          <li>Clean architecture mindset</li>
+          <li>Autonomous, self-driven learner</li>
+          <li>End-to-end ownership</li>
+          <li>Attention to security &amp; reliability</li>
+          <li>Adaptable to new tech quickly</li>
+        </ul>
+      </div>
+
+    </aside>
+
+    <!-- ─ MAIN ────────────────────────────────────────── -->
+    <main class="main">
+
+      <div class="section summary">
+        <div class="section-title">Professional Summary</div>
+        <p>
+          Java Backend Developer with 2+ years of Java development experience, including commercial work
+          on production systems. Specialise in building robust backend systems: authentication &amp; role-based
+          security, payment processing, audit logging, rate limiting, and third-party integrations.
+          Hands-on experience with fraud-prevention mechanisms — rate limiting, request validation,
+          transaction audit logging, and secure API design. Delivered end-to-end products from REST API
+          and database design through to Dockerised deployment on Linux VPS.
+          Actively looking for a remote backend role in a team that values clean, testable code.
+        </p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Projects</div>
+
+        <!-- Project 1 -->
+        <div class="project">
+          <div class="project-header">
+            <div class="project-name">Elixir SportShop — E-commerce Platform</div>
+            <span class="project-badge">Full Cycle · Commercial · 3+ months</span>
+          </div>
+          <div class="project-tech">
+            <span class="tag">Java 21</span><span class="tag">Spring Boot 3.x</span>
+            <span class="tag">Spring Security</span><span class="tag green">PostgreSQL</span>
+            <span class="tag">JWT</span><span class="tag">Bucket4j</span>
+            <span class="tag">OpenAPI</span><span class="tag green">Flyway</span>
+            <span class="tag gray">Docker</span><span class="tag gray">Nginx</span>
+            <span class="tag">Sentry</span><span class="tag">Spring Actuator</span>
+          </div>
+          <ul class="project-bullets">
+            <li>Designed REST API and database schema; built full backend: product catalog, cart, order lifecycle, JWT auth with role-based access (customer / admin), Flyway migrations.</li>
+            <li>Implemented secure payment gateway integration with webhook handling and full transaction audit logging.</li>
+            <li>Built fraud-prevention layer: rate limiting (Bucket4j), reCAPTCHA v3, request validation, and Sentry monitoring.</li>
+            <li>Deployed multi-service architecture with Docker Compose, Nginx reverse proxy, and multi-stage builds on Linux VPS.</li>
+            <li>Integrated third-party services: Cloudinary (images), Telegram Bot (admin alerts), SMTP (email). Frontend (Next.js + React Admin) also developed as part of full-cycle delivery.</li>
+          </ul>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project">
+          <div class="project-header">
+            <div class="project-name">Wdrozeniowy — Full-Stack Monorepo</div>
+            <span class="project-badge">Team · Backend · Deputy Scrum Master · Diploma</span>
+          </div>
+          <div class="project-tech">
+            <span class="tag">Java 17</span><span class="tag">Spring Boot 4.x</span>
+            <span class="tag">Spring Security</span><span class="tag green">H2</span>
+            <span class="tag">JWT</span><span class="tag gray">Docker</span>
+            <span class="tag">Socket.io</span><span class="tag">JUnit 5</span><span class="tag">Mockito</span>
+          </div>
+          <ul class="project-bullets">
+            <li>Team diploma project (3 services: Java backend, Next.js frontend, Node.js gateway). Acted as Deputy Scrum Master alongside backend responsibilities.</li>
+            <li>Designed the REST API and database schema; implemented Spring Boot 4 backend with Spring Security and JWT authentication.</li>
+            <li>Set up Docker and Docker Compose for all services; implemented WebSocket communication (Socket.io) between gateway and clients.</li>
+            <li>Covered business logic with JUnit 5 + Mockito unit tests.</li>
+          </ul>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project">
+          <div class="project-header">
+            <div class="project-name">
+              <a href="https://github.com/IvanYemtseu/task-manager-api">Task Manager REST API</a>
+            </div>
+            <span class="project-badge">Full Cycle</span>
+          </div>
+          <div class="project-tech">
+            <span class="tag">Java 17</span><span class="tag">Spring Boot 3.2</span>
+            <span class="tag">Spring Data JPA</span><span class="tag green">PostgreSQL</span>
+            <span class="tag gray">Docker</span><span class="tag">JUnit 5</span>
+            <span class="tag">Mockito</span><span class="tag">Lombok</span>
+          </div>
+          <ul class="project-bullets">
+            <li>Architected a clean RESTful API with full CRUD, input validation, and structured error handling.</li>
+            <li>Designed the database schema and configured Spring Data JPA repositories.</li>
+            <li>Covered service and controller layers with JUnit 5 + Mockito unit tests.</li>
+            <li>Containerised with Docker and docker-compose for reproducible local development.</li>
+          </ul>
+          <a class="project-link" href="https://github.com/IvanYemtseu/task-manager-api">github.com/IvanYemtseu/task-manager-api</a>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="project">
+          <div class="project-header">
+            <div class="project-name">MeritoQuiz — Android Quiz Application</div>
+            <span class="project-badge">Full Cycle · Mobile</span>
+          </div>
+          <div class="project-tech">
+            <span class="tag orange">Kotlin</span><span class="tag orange">Jetpack Compose</span>
+            <span class="tag orange">Material 3</span><span class="tag green">Room SQLite</span>
+            <span class="tag orange">Android SDK 36</span><span class="tag gray">Gradle</span>
+            <span class="tag">ViewModel</span><span class="tag">Espresso</span>
+          </div>
+          <ul class="project-bullets">
+            <li>Built a native Android quiz app entirely with Jetpack Compose and Material 3 design guidelines.</li>
+            <li>Implemented local persistence with Room SQLite and lifecycle-aware state management with ViewModel.</li>
+            <li>Applied MVVM architecture; covered UI flows with Espresso and unit tests with JUnit 4.</li>
+          </ul>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="project">
+          <div class="project-header">
+            <div class="project-name">
+              <a href="https://github.com/IvanYemtseu/Playfair-cipher">Playfair Cipher — Desktop Encryption Tool</a>
+            </div>
+            <span class="project-badge">Full Cycle · Desktop</span>
+          </div>
+          <div class="project-tech">
+            <span class="tag">C#</span><span class="tag">.NET Framework 4.8</span>
+            <span class="tag">Windows Forms</span>
+          </div>
+          <ul class="project-bullets">
+            <li>Designed and implemented the Playfair cipher algorithm (encryption &amp; decryption) in C#.</li>
+            <li>Built an intuitive Windows Forms GUI for interactive text encoding.</li>
+          </ul>
+          <a class="project-link" href="https://github.com/IvanYemtseu/Playfair-cipher">github.com/IvanYemtseu/Playfair-cipher</a>
+        </div>
+
+        <!-- Project 6 -->
+        <div class="project">
+          <div class="project-header">
+            <div class="project-name">CRM Backend Optimisation</div>
+            <span class="project-badge">~6 months · Commercial</span>
+          </div>
+          <div class="project-tech">
+            <span class="tag">Java</span><span class="tag">Spring Boot</span>
+            <span class="tag green">PostgreSQL</span><span class="tag">Query Optimisation</span>
+            <span class="tag">Spring Actuator</span>
+          </div>
+          <ul class="project-bullets">
+            <li>Profiled and optimised backend bottlenecks in a production CRM — reduced average response latency by ~30%.</li>
+            <li>Rewrote N+1 queries, added strategic indexes, and refactored service-layer logic.</li>
+            <li>Introduced monitoring via Spring Actuator and documented optimisation strategies.</li>
+          </ul>
+        </div>
+
+      </div>
+      <!-- /section projects -->
+
+    </main>
+  </div>
+</div>
+</body>
+</html>

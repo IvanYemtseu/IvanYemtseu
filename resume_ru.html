@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Иван Емцев — Backend разработчик</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0f1b2d;
+      --navy2:  #1a2d45;
+      --teal:   #0ea5e9;
+      --teal2:  #38bdf8;
+      --accent: #10b981;
+      --light:  #f8fafc;
+      --muted:  #94a3b8;
+      --text:   #1e293b;
+      --border: #e2e8f0;
+      --tag-bg: #eff6ff;
+      --tag-fg: #1d4ed8;
+    }
+
+    html { font-size: 10pt; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: #f1f5f9;
+      line-height: 1.55;
+    }
+
+    .page {
+      max-width: 210mm;
+      margin: 0 auto;
+      background: #fff;
+      box-shadow: 0 4px 32px rgba(0,0,0,.12);
+    }
+
+    .header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+      color: #fff;
+      padding: 36px 44px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+    }
+
+    .header-left h1 { font-size: 2rem; font-weight: 700; letter-spacing: -.5px; line-height: 1.1; }
+    .header-left h1 span { color: var(--teal2); }
+    .header-left .title { margin-top: 6px; font-size: .95rem; font-weight: 400; color: var(--muted); letter-spacing: .5px; text-transform: uppercase; }
+    .header-left .tagline { margin-top: 12px; font-size: .82rem; color: #cbd5e1; max-width: 380px; line-height: 1.5; }
+
+    .header-right { display: flex; flex-direction: column; gap: 7px; min-width: 220px; text-align: right; }
+
+    .contact-item { font-size: .78rem; color: #cbd5e1; display: flex; align-items: center; justify-content: flex-end; gap: 7px; }
+    .contact-item a { color: var(--teal2); text-decoration: none; }
+    .contact-item a:hover { text-decoration: underline; }
+    .contact-icon { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; background: rgba(255,255,255,.08); border-radius: 4px; font-size: .7rem; }
+
+    .body-wrap { display: grid; grid-template-columns: 260px 1fr; min-height: 0; }
+
+    .sidebar { background: var(--light); border-right: 1px solid var(--border); padding: 28px 22px; }
+    .sidebar-section { margin-bottom: 26px; }
+    .sidebar-section:last-child { margin-bottom: 0; }
+
+    .s-title { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--teal); margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid var(--teal); }
+
+    .skill-category { margin-bottom: 14px; }
+    .skill-cat-name { font-size: .75rem; font-weight: 600; color: var(--navy); margin-bottom: 5px; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+    .tag { font-family: 'JetBrains Mono', monospace; font-size: .62rem; font-weight: 500; background: var(--tag-bg); color: var(--tag-fg); border-radius: 3px; padding: 2px 6px; white-space: nowrap; }
+    .tag.green  { background: #f0fdf4; color: #166534; }
+    .tag.purple { background: #faf5ff; color: #6b21a8; }
+    .tag.orange { background: #fff7ed; color: #9a3412; }
+    .tag.gray   { background: #f1f5f9; color: #475569; }
+
+    .lang-item { margin-bottom: 9px; }
+    .lang-name { font-size: .78rem; font-weight: 600; color: var(--navy); }
+    .lang-level { font-size: .7rem; color: var(--muted); }
+    .lang-bar { height: 3px; background: var(--border); border-radius: 2px; margin-top: 4px; }
+    .lang-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--teal), var(--accent)); }
+
+    .edu-item .edu-degree { font-size: .78rem; font-weight: 600; color: var(--navy); line-height: 1.35; }
+    .edu-item .edu-school { font-size: .73rem; color: var(--muted); margin-top: 3px; }
+    .edu-item .edu-date  { font-size: .7rem; color: var(--teal); margin-top: 4px; font-weight: 500; }
+
+    .soft-list { list-style: none; }
+    .soft-list li { font-size: .76rem; color: #475569; padding: 3px 0 3px 14px; position: relative; }
+    .soft-list li::before { content: '▸'; position: absolute; left: 0; color: var(--teal); font-size: .7rem; }
+
+    .main { padding: 28px 32px; }
+    .section { margin-bottom: 26px; }
+    .section:last-child { margin-bottom: 0; }
+
+    .section-title { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--teal); margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid var(--teal); }
+
+    .summary p { font-size: .84rem; color: #334155; line-height: 1.65; }
+
+    .project { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .project:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+    .project-header { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .project-name { font-size: .92rem; font-weight: 700; color: var(--navy); }
+    .project-name a { color: var(--navy); text-decoration: none; }
+    .project-name a:hover { color: var(--teal); }
+
+    .project-badge { font-size: .62rem; font-weight: 600; background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; border-radius: 99px; padding: 2px 8px; white-space: nowrap; }
+
+    .project-tech { margin-top: 5px; display: flex; flex-wrap: wrap; gap: 4px; }
+
+    .project-bullets { margin-top: 7px; list-style: none; padding: 0; }
+    .project-bullets li { font-size: .79rem; color: #334155; padding: 2px 0 2px 16px; position: relative; line-height: 1.55; }
+    .project-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--teal); font-size: .75rem; }
+
+    .project-link { display: inline-block; margin-top: 6px; font-size: .72rem; color: var(--teal); text-decoration: none; font-family: 'JetBrains Mono', monospace; }
+    .project-link:hover { text-decoration: underline; }
+
+    @media print {
+      body { background: #fff; }
+      .page { box-shadow: none; max-width: 100%; }
+      @page { size: A4; margin: 0; }
+      .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .sidebar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <header class="header">
+    <div class="header-left">
+      <h1>Иван <span>Емцев</span></h1>
+      <div class="title">Backend разработчик</div>
+      <div class="tagline">
+        Full-cycle Java разработчик с 2+ годами опыта построения production-систем —
+        от безопасных REST API и платёжных потоков до Android-приложений и full-stack монорепозиториев.
+        Заканчиваю степень инженера-программиста, активно ищу удалённую работу.
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="contact-item"><span class="contact-icon">✉</span><a href="mailto:Ivan.Yemtseu@gmail.com">Ivan.Yemtseu@gmail.com</a></div>
+      <div class="contact-item"><span class="contact-icon">🇵🇱</span>+48 576 531 835</div>
+      <div class="contact-item"><span class="contact-icon">🇧🇾</span>+375 (29) 187-63-00</div>
+      <div class="contact-item"><span class="contact-icon">⌨</span><a href="https://github.com/IvanYemtseu">github.com/IvanYemtseu</a></div>
+      <div class="contact-item"><span class="contact-icon">in</span><a href="https://linkedin.com/in/ivan-yemtseu">linkedin.com/in/ivan-yemtseu</a></div>
+    </div>
+  </header>
+
+  <div class="body-wrap">
+
+    <aside class="sidebar">
+
+      <div class="sidebar-section">
+        <div class="s-title">Технологии</div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">Backend</div>
+          <div class="tags">
+            <span class="tag">Java 21</span>
+            <span class="tag">Spring Boot 3.x</span>
+            <span class="tag">Spring Security</span>
+            <span class="tag">Spring Data JPA</span>
+            <span class="tag">Hibernate</span>
+            <span class="tag">REST API</span>
+            <span class="tag">JWT</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">Базы данных</div>
+          <div class="tags">
+            <span class="tag green">PostgreSQL</span>
+            <span class="tag green">MS SQL Server</span>
+            <span class="tag green">Oracle SQL</span>
+            <span class="tag green">H2</span>
+            <span class="tag green">Flyway</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">Frontend (базовый)</div>
+          <div class="tags">
+            <span class="tag purple">Next.js</span>
+            <span class="tag purple">HTML5 / CSS3</span>
+            <span class="tag purple">JavaScript</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">Проектирование API</div>
+          <div class="tags">
+            <span class="tag">REST API</span>
+            <span class="tag">Webhooks</span>
+            <span class="tag">OpenAPI / Swagger</span>
+            <span class="tag">SMTP</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">DevOps и инфраструктура</div>
+          <div class="tags">
+            <span class="tag gray">Docker</span>
+            <span class="tag gray">Docker Compose</span>
+            <span class="tag gray">OpenShift</span>
+            <span class="tag gray">Nginx</span>
+            <span class="tag gray">Linux / VPS</span>
+            <span class="tag gray">Jenkins</span>
+            <span class="tag gray">Maven</span>
+            <span class="tag gray">Gradle</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">Безопасность и мониторинг</div>
+          <div class="tags">
+            <span class="tag">Bucket4j</span>
+            <span class="tag">Rate Limiting</span>
+            <span class="tag">Sentry</span>
+            <span class="tag">Spring Actuator</span>
+            <span class="tag">Audit Logging</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">Интеграции</div>
+          <div class="tags">
+            <span class="tag">Telegram Bot API</span>
+            <span class="tag">Cloudinary</span>
+            <span class="tag">SMTP</span>
+            <span class="tag">reCAPTCHA v3</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">Тестирование</div>
+          <div class="tags">
+            <span class="tag">JUnit 5</span>
+            <span class="tag">Mockito</span>
+            <span class="tag">AssertJ</span>
+            <span class="tag">Hamcrest</span>
+            <span class="tag">TDD</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <div class="skill-cat-name">Дополнительно</div>
+          <div class="tags">
+            <span class="tag gray">Kotlin / Android</span>
+            <span class="tag gray">Node.js</span>
+            <span class="tag gray">C# / .NET</span>
+            <span class="tag gray">Git</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="s-title">Языки</div>
+        <div class="lang-item">
+          <div class="lang-name">Русский</div>
+          <div class="lang-level">Родной</div>
+          <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-name">Польский</div>
+          <div class="lang-level">Свободный (C1)</div>
+          <div class="lang-bar"><div class="lang-fill" style="width:88%"></div></div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-name">Английский</div>
+          <div class="lang-level">Свободный (B2+)</div>
+          <div class="lang-bar"><div class="lang-fill" style="width:82%"></div></div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="s-title">Образование</div>
+        <div class="edu-item">
+          <div class="edu-degree">Инженер — Программная инженерия</div>
+          <div class="edu-school">Wyższa Szkoła Bankowa Merito, Гданьск</div>
+          <div class="edu-date">Окончание: февраль 2027 (6 семестр из 7)</div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="s-title">Личные качества</div>
+        <ul class="soft-list">
+          <li>Мышление «чистой архитектуры»</li>
+          <li>Самостоятельность и инициативность</li>
+          <li>Полная ответственность за результат</li>
+          <li>Фокус на безопасности и надёжности</li>
+          <li>Быстрое освоение новых технологий</li>
+        </ul>
+      </div>
+
+    </aside>
+
+    <main class="main">
+
+      <div class="section summary">
+        <div class="section-title">Профессиональное резюме</div>
+        <p>
+          Java Backend разработчик с 2+ годами опыта разработки на Java, включая коммерческую работу
+          на production-системах. Специализируюсь на построении надёжных backend-систем: аутентификация
+          и role-based security, обработка платежей, audit logging, rate limiting и интеграции с внешними сервисами.
+          Практический опыт в антифрод-механизмах: rate limiting, валидация запросов, audit logging транзакций
+          и проектирование безопасных API. Поставлял продукты от проектирования REST API и схемы БД
+          до Docker-деплоя на Linux VPS.
+          Ищу удалённую позицию backend-разработчика в команду, которая ценит чистый и тестируемый код.
+        </p>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Проекты</div>
+
+        <div class="project">
+          <div class="project-header">
+            <div class="project-name">Elixir SportShop — Интернет-магазин</div>
+            <span class="project-badge">Full Cycle · Коммерческий · 3+ мес.</span>
+          </div>
+          <div class="project-tech">
+            <span class="tag">Java 21</span><span class="tag">Spring Boot 3.x</span>
+            <span class="tag">Spring Security</span><span class="tag green">PostgreSQL</span>
+            <span class="tag">JWT</span><span class="tag">Bucket4j</span>
+            <span class="tag">OpenAPI</span><span class="tag green">Flyway</span>
+            <span class="tag gray">Docker</span><span class="tag gray">Nginx</span>
+            <span class="tag">Sentry</span><span class="tag">Spring Actuator</span>
+          </div>
+          <ul class="project-bullets">
+            <li>Спроектировал REST API и схему базы данных; реализовал полный backend: каталог, корзина, жизненный цикл заказов, JWT-аутентификация с role-based доступом, миграции Flyway.</li>
+            <li>Интегрировал платёжный шлюз с обработкой webhook-ов и полным audit logging транзакций.</li>
+            <li>Построил слой защиты от фрода: rate limiting (Bucket4j), reCAPTCHA v3, валидация запросов, мониторинг через Sentry.</li>
+            <li>Задеплоил multi-service архитектуру с Docker Compose, Nginx reverse proxy и multi-stage сборками на Linux VPS.</li>
+            <li>Интегрировал сторонние сервисы: Cloudinary, Telegram Bot, SMTP. Фронтенд (Next.js + React Admin) также разработан в рамках full-cycle поставки.</li>
+          </ul>
+        </div>
+
+        <div class="project">
+          <div class="project-header">
+            <div class="project-name">Wdrozeniowy — Full-Stack Монорепозиторий</div>
+            <span class="project-badge">Команда · Backend · Зам. Scrum Master · Диплом</span>
+          </div>
+          <div class="project-tech">
+            <span class="tag">Java 17</span><span class="tag">Spring Boot 4.x</span>
+            <span class="tag">Spring Security</span><span class="tag green">H2</span>
+            <span class="tag">JWT</span><span class="tag gray">Docker</span>
+            <span class="tag">Socket.io</span><span class="tag">JUnit 5</span><span class="tag">Mockito</span>
+          </div>
+          <ul class="project-bullets">
+            <li>Командный дипломный проект (3 сервиса: Java backend, Next.js frontend, Node.js gateway). Выполнял роль заместителя Scrum Master параллельно с backend-разработкой.</li>
+            <li>Спроектировал REST API и схему базы данных; реализовал backend на Spring Boot 4 с Spring Security и JWT.</li>
+            <li>Настроил Docker и Docker Compose для всех сервисов; реализовал WebSocket-коммуникацию (Socket.io) между шлюзом и клиентами.</li>
+            <li>Покрыл бизнес-логику юнит-тестами (JUnit 5 + Mockito).</li>
+          </ul>
+        </div>
+
+        <div class="project">
+          <div class="project-header">
+            <div class="project-name">
+              <a href="https://github.com/IvanYemtseu/task-manager-api">Task Manager REST API</a>
+            </div>
+            <span class="project-badge">Full Cycle</span>
+          </div>
+          <div class="project-tech">
+            <span class="tag">Java 17</span><span class="tag">Spring Boot 3.2</span>
+            <span class="tag">Spring Data JPA</span><span class="tag green">PostgreSQL</span>
+            <span class="tag gray">Docker</span><span class="tag">JUnit 5</span>
+            <span class="tag">Mockito</span><span class="tag">Lombok</span>
+          </div>
+          <ul class="project-bullets">
+            <li>Спроектировал чистый RESTful API с полным CRUD, валидацией входных данных и структурированной обработкой ошибок.</li>
+            <li>Разработал схему БД и настроил репозитории Spring Data JPA.</li>
+            <li>Покрыл сервисный и контроллерный слои юнит-тестами (JUnit 5 + Mockito).</li>
+            <li>Контейнеризировал с Docker и docker-compose для воспроизводимой разработки.</li>
+          </ul>
+          <a class="project-link" href="https://github.com/IvanYemtseu/task-manager-api">github.com/IvanYemtseu/task-manager-api</a>
+        </div>
+
+        <div class="project">
+          <div class="project-header">
+            <div class="project-name">MeritoQuiz — Android Приложение</div>
+            <span class="project-badge">Full Cycle · Mobile</span>
+          </div>
+          <div class="project-tech">
+            <span class="tag orange">Kotlin</span><span class="tag orange">Jetpack Compose</span>
+            <span class="tag orange">Material 3</span><span class="tag green">Room SQLite</span>
+            <span class="tag orange">Android SDK 36</span><span class="tag gray">Gradle</span>
+            <span class="tag">ViewModel</span><span class="tag">Espresso</span>
+          </div>
+          <ul class="project-bullets">
+            <li>Создал нативное Android-приложение-квиз полностью на Jetpack Compose с Material 3.</li>
+            <li>Реализовал локальное хранилище через Room SQLite и управление состоянием через ViewModel.</li>
+            <li>Применил архитектуру MVVM; покрыл UI-потоки тестами Espresso и JUnit 4.</li>
+          </ul>
+        </div>
+
+        <div class="project">
+          <div class="project-header">
+            <div class="project-name">
+              <a href="https://github.com/IvanYemtseu/Playfair-cipher">Playfair Cipher — Настольное приложение</a>
+            </div>
+            <span class="project-badge">Full Cycle · Desktop</span>
+          </div>
+          <div class="project-tech">
+            <span class="tag">C#</span><span class="tag">.NET Framework 4.8</span>
+            <span class="tag">Windows Forms</span>
+          </div>
+          <ul class="project-bullets">
+            <li>Разработал и реализовал алгоритм шифра Плейфера (шифрование и дешифрование) на C#.</li>
+            <li>Построил интуитивный GUI на Windows Forms для интерактивного кодирования текста.</li>
+          </ul>
+          <a class="project-link" href="https://github.com/IvanYemtseu/Playfair-cipher">github.com/IvanYemtseu/Playfair-cipher</a>
+        </div>
+
+        <div class="project">
+          <div class="project-header">
+            <div class="project-name">Оптимизация Backend CRM</div>
+            <span class="project-badge">~6 мес. · Коммерческий</span>
+          </div>
+          <div class="project-tech">
+            <span class="tag">Java</span><span class="tag">Spring Boot</span>
+            <span class="tag green">PostgreSQL</span><span class="tag">Оптимизация запросов</span>
+            <span class="tag">Spring Actuator</span>
+          </div>
+          <ul class="project-bullets">
+            <li>Профилировал и устранял узкие места в production CRM — снизил среднее время отклика на ~30%.</li>
+            <li>Переработал N+1 запросы, добавил индексы, рефакторил логику сервисного слоя.</li>
+            <li>Внедрил мониторинг через Spring Actuator и задокументировал стратегии оптимизации.</li>
+          </ul>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+</div>
+</body>
+</html>
