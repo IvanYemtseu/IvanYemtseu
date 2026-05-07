@@ -176,9 +176,8 @@ I build things end-to-end — from database schema design and REST API architect
 
 **Open to remote backend / full-stack opportunities**
 
-[![Email](https://img.shields.io/badge/📧_Ivan.Yemtseu%40gmail.com-0ea5e9?style=for-the-badge)](mailto:Ivan.Yemtseu@gmail.com)
+[![Email](https://img.shields.io/badge/📧_Ivan.Yemtseu%40icloud.com-0ea5e9?style=for-the-badge)](mailto:Ivan.Yemtseu@icloud.com)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077b5?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/ivan-yemtseu)
-[![Phone PL](https://img.shields.io/badge/🇵🇱_+48_576_531_835-white?style=for-the-badge)](tel:+48576531835)
 
 </div>
 
