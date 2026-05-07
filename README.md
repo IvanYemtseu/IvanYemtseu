@@ -165,8 +165,8 @@ I build things end-to-end — from database schema design and REST API architect
 | Language | Level |
 |----------|-------|
 | 🇷🇺 Russian | Native |
-| 🇵🇱 Polish | Fluent (C1) |
-| 🇬🇧 English | Fluent (B2+) |
+| 🇵🇱 Polish | Fluent (B2) |
+| 🇬🇧 English | Fluent (B2) |
 
 ---
 
